@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "4c9f4dbb-f8bc-4a5d-aa43-80461fe7134c",
+		"name": "Basic Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47051797",
+		"_collection_link": "https://jacobthowell7-2914185.postman.co/workspace/aef41c83-0d1d-446e-8521-0ae50ea177e2/collection/47051797-4c9f4dbb-f8bc-4a5d-aa43-80461fe7134c?action=share&source=collection_link&creator=47051797"
+	},
+	"item": [
+		{
+			"name": "Basic Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set('basic-param-value','post-script-param-value');\r",
+							"console.log(pm.environment.get('basic-param-key') + ': ' + pm.environment.get('basic-param-value'));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set('basic-param-value','pre-script-param-value');\r",
+							"console.log(pm.environment.get('basic-param-key') + ': ' + pm.environment.get('basic-param-value'));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"basic-body-key\": \"basic-body-value\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-URL}}/post?{{basic-param-key}}={{basic-param-value}}",
+					"host": [
+						"{{base-URL}}"
+					],
+					"path": [
+						"post"
+					],
+					"query": [
+						{
+							"key": "{{basic-param-key}}",
+							"value": "{{basic-param-value}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set Cookies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+							"});\r",
+							"\r",
+							"const parsedResponseJson = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response has property cookies\", function () {\r",
+							"    pm.expect(parsedResponseJson).to.haveOwnProperty('cookies');\r",
+							"});\r",
+							"\r",
+							"const cookies = pm.response.json().cookies;\r",
+							"\r",
+							"pm.test(\"Cookies has property foo1\", function () {\r",
+							"    pm.expect(cookies).to.haveOwnProperty(\"foo1\");\r",
+							"});\r",
+							"\r",
+							"const foo1 = pm.response.json().cookies.foo1;\r",
+							"\r",
+							"pm.test(\"Cookies has property foo1\", function () {\r",
+							"    pm.expect(foo1).to.eql(\"bar1\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-URL}}/cookies/set?foo1=bar1&foo2=bar2",
+					"host": [
+						"{{base-URL}}"
+					],
+					"path": [
+						"cookies",
+						"set"
+					],
+					"query": [
+						{
+							"key": "foo1",
+							"value": "bar1"
+						},
+						{
+							"key": "foo2",
+							"value": "bar2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cookies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+							"});\r",
+							"\r",
+							"const parsedResponseJson = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response has property cookies\", function () {\r",
+							"    pm.expect(parsedResponseJson).to.haveOwnProperty('cookies');\r",
+							"});\r",
+							"\r",
+							"const cookies = pm.response.json().cookies;\r",
+							"\r",
+							"pm.test(\"Cookies has property foo1\", function () {\r",
+							"    pm.expect(cookies).to.haveOwnProperty(\"foo1\");\r",
+							"});\r",
+							"\r",
+							"const foo1 = pm.response.json().cookies.foo1;\r",
+							"\r",
+							"pm.test(\"foo1 has value of bar1\", function () {\r",
+							"    pm.expect(foo1).to.eql(\"bar1\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-URL}}/cookies",
+					"host": [
+						"{{base-URL}}"
+					],
+					"path": [
+						"cookies"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
