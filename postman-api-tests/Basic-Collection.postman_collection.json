@@ -94,7 +94,7 @@
 							"\r",
 							"const foo1 = pm.response.json().cookies.foo1;\r",
 							"\r",
-							"pm.test(\"Cookies has property foo1\", function () {\r",
+							"pm.test(\"foo1 has value of bar1\", function () {\r",
 							"    pm.expect(foo1).to.eql(\"bar1\");\r",
 							"});"
 						],
